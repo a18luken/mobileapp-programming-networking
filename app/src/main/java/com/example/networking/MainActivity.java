@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
 
         List<String> mountains = Arrays.asList("K2", "Mount Everest", "Mount Blanc", "Olympus");
         ArrayList <String> Mountain = new ArrayList<String>();
+        RecyclerView.Adapter;
 
         recyclerView = findViewById(R.id.recyclerview);
         AdapterMountain adapterMountain = new AdapterMountain(mountains);
