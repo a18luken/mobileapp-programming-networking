@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         new JsonTask(this).execute(JSON_URL);
 
         List<String> mountains = Arrays.asList("K2", "Mount Everest", "Mount Blanc", "Olympus");
+        ArrayList <String> Mountain = new ArrayList<String>();
 
         recyclerView = findViewById(R.id.recyclerview);
         AdapterMountain adapterMountain = new AdapterMountain(mountains);
