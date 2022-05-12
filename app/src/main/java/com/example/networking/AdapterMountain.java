@@ -8,12 +8,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterMountain extends RecyclerView.Adapter<AdapterMountain.AdapterMountainViewHolder>{
-    private List<String> mountains;
+    private ArrayList<String> mountains;
 
-    public AdapterMountain(List<String> mountains) {
+    public AdapterMountain(ArrayList<String> mountains) {
         this.mountains = mountains;
     }
 

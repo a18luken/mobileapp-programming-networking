@@ -18,26 +18,31 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
     private final String JSON_URL = "https://mobprog.webug.se/json-api?login=brom";
     private final String JSON_FILE = "mountains.json";
     private RecyclerView recyclerView;
+    private ArrayList<String> mountains = new ArrayList<String>();
+    AdapterMountain adapterMountain = new AdapterMountain(mountains);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mountains.add("K2");
+        mountains.add("MountEverest");
+        mountains.add("MountBlanc");
         new JsonTask(this).execute(JSON_URL);
 
-        List<String> mountains = Arrays.asList("K2", "Mount Everest", "Mount Blanc", "Olympus");
         ArrayList <String> Mountain = new ArrayList<String>();
-        RecyclerView.Adapter;
+
 
         recyclerView = findViewById(R.id.recyclerview);
-        AdapterMountain adapterMountain = new AdapterMountain(mountains);
+
         recyclerView.setAdapter(adapterMountain);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
     @Override
     public void onPostExecute(String json) {
-        Log.d("MainActivity", json);
+        this.mountains.add("foo");
+        Log.d("MainActivity", this.mountains.toString());
+        adapterMountain.notifyDataSetChanged();
     }
 
 }
