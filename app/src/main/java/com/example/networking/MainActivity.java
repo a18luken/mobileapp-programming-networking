@@ -8,6 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,31 +22,40 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
     private final String JSON_URL = "https://mobprog.webug.se/json-api?login=brom";
     private final String JSON_FILE = "mountains.json";
     private RecyclerView recyclerView;
-    private ArrayList<String> mountains = new ArrayList<String>();
-    AdapterMountain adapterMountain = new AdapterMountain(mountains);
+    private ArrayList<String> mountains;
+    private AdapterMountain adapterMountain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mountains.add("K2");
-        mountains.add("MountEverest");
-        mountains.add("MountBlanc");
         new JsonTask(this).execute(JSON_URL);
 
         ArrayList <String> Mountain = new ArrayList<String>();
 
 
         recyclerView = findViewById(R.id.recyclerview);
-
-        recyclerView.setAdapter(adapterMountain);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
     @Override
     public void onPostExecute(String json) {
+        Log.d("MainActivity", json);
+        mountains = new ArrayList<String>();
+        try {
+            JSONArray arr = new JSONArray(json);
+            for (int i = 0; i < arr.length(); i++)
+            {
+                this.mountains.add(arr.getJSONObject(i).getString("name"));
+               Log.d("MainActivity",arr.getJSONObject(i).getString("name"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         this.mountains.add("foo");
-        Log.d("MainActivity", this.mountains.toString());
-        adapterMountain.notifyDataSetChanged();
+        adapterMountain = new AdapterMountain(mountains);
+        recyclerView.setAdapter(adapterMountain);
     }
 
 }
