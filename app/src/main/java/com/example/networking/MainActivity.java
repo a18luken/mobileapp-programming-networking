@@ -31,21 +31,23 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         new JsonTask(this).execute(JSON_URL);
 
         ArrayList <String> Mountain = new ArrayList<String>();
-
-
+        mountains = new ArrayList<String>();
+        adapterMountain = new AdapterMountain(mountains);
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setAdapter(adapterMountain);
+
     }
 
     @Override
     public void onPostExecute(String json) {
         Log.d("MainActivity", json);
-        mountains = new ArrayList<String>();
         try {
             JSONArray arr = new JSONArray(json);
             for (int i = 0; i < arr.length(); i++)
             {
                 this.mountains.add(arr.getJSONObject(i).getString("name"));
+
                Log.d("MainActivity",arr.getJSONObject(i).getString("name"));
             }
         } catch (JSONException e) {
@@ -54,8 +56,7 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
 
 
         this.mountains.add("foo");
-        adapterMountain = new AdapterMountain(mountains);
-        recyclerView.setAdapter(adapterMountain);
+        adapterMountain.notifyDataSetChanged();
     }
 
 }
