@@ -48,9 +48,6 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         List<Mountain> listOfMountains = gson.fromJson(json, type);
         adapterMountain.setMountains(listOfMountains);
 
-        // 1. use setter in adapter to set listOfMounts
-        // 2. use method named NotifyDataSetChanged in adapter
-
 
         adapterMountain.notifyDataSetChanged();
     }
