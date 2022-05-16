@@ -2,18 +2,17 @@ package com.example.networking;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -24,15 +23,17 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
     private RecyclerView recyclerView;
     private ArrayList<String> mountains;
     private AdapterMountain adapterMountain;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new JsonTask(this).execute(JSON_URL);
 
-        ArrayList <String> Mountain = new ArrayList<String>();
+        ArrayList <Mountain> mountain = new ArrayList<Mountain>();
         mountains = new ArrayList<String>();
-        adapterMountain = new AdapterMountain(mountains);
+        adapterMountain = new AdapterMountain();
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapterMountain);
@@ -42,18 +43,13 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
     @Override
     public void onPostExecute(String json) {
         Log.d("MainActivity", json);
-        try {
-            JSONArray arr = new JSONArray(json);
-            for (int i = 0; i < arr.length(); i++)
-            {
-                this.mountains.add(arr.getJSONObject(i).getString("name"));
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<Mountain>>() {}.getType();
+        List<Mountain> listOfMountains = gson.fromJson(json, type);
+        adapterMountain.setMountains(listOfMountains);
 
-               Log.d("MainActivity",arr.getJSONObject(i).getString("name"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        // 1. use setter in adapter to set listOfMounts
+        // 2. use method named NotifyDataSetChanged in adapter
 
         this.mountains.add("foo");
         adapterMountain.notifyDataSetChanged();

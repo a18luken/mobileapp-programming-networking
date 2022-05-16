@@ -11,30 +11,36 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterMountain extends RecyclerView.Adapter<AdapterMountain.AdapterMountainViewHolder>{
-    private ArrayList<String> mountains;
+public class AdapterMountain extends RecyclerView.Adapter<MountainViewHolder> {
 
-    public AdapterMountain(ArrayList<String> mountains) {
-        this.mountains = mountains;
-    }
-
+    private List<Mountain> mountains = new ArrayList<>();
 
     @NonNull
     @Override
-    public AdapterMountainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
-        return new AdapterMountainViewHolder(view);
+    public MountainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        return new MountainViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterMountainViewHolder holder, int position) {
-        holder.mountain_name.setText(mountains.get(position));
+    public void onBindViewHolder(@NonNull MountainViewHolder holder, int position) {
+        //holder.mountain_name.setText(mountains.get(position));
+
+        Mountain mountain = mountains.get(position);
+
+
     }
 
     @Override
     public int getItemCount() {
         return mountains.size();
     }
+    public void setMountains(List<Mountain> mountains){
+        this.mountains = mountains;
+    }
+
+}
+    /*
 
     public class AdapterMountainViewHolder extends RecyclerView.ViewHolder {
         private TextView mountain_name;
@@ -43,4 +49,4 @@ public class AdapterMountain extends RecyclerView.Adapter<AdapterMountain.Adapte
             mountain_name = itemView.findViewById(R.id.mountain_names);
         }
     }
-}
+}*/
