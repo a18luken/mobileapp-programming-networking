@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         // 1. use setter in adapter to set listOfMounts
         // 2. use method named NotifyDataSetChanged in adapter
 
-        this.mountains.add("foo");
         adapterMountain.notifyDataSetChanged();
     }
 

@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MountainViewHolder extends RecyclerView.ViewHolder {
     
-    private TextView name;
-    private TextView location;
-    private TextView height;
+    public TextView name;
+    public TextView location;
+    public TextView height;
 
     public MountainViewHolder(@NonNull View itemView){
         super(itemView);
