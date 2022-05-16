@@ -28,8 +28,7 @@ public class AdapterMountain extends RecyclerView.Adapter<MountainViewHolder> {
 
         Mountain mountain = mountains.get(position);
         holder.name.setText(mountain.getName());
-        holder.height.setText(mountain.getHeight());
-        holder.height.setText(mountain.getLocation());
+
 
 
     }

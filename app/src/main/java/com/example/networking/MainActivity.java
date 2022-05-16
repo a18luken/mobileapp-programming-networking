@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
     private final String JSON_URL = "https://mobprog.webug.se/json-api?login=brom";
     private final String JSON_FILE = "mountains.json";
     private RecyclerView recyclerView;
-    private ArrayList<String> mountains;
+    private List<Mountain> listOfMountains;
     private AdapterMountain adapterMountain;
 
 
@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         setContentView(R.layout.activity_main);
         new JsonTask(this).execute(JSON_URL);
 
-        ArrayList <Mountain> mountain = new ArrayList<Mountain>();
-        mountains = new ArrayList<String>();
+        ArrayList <Mountain> mountain = new ArrayList<>();
+        listOfMountains = new ArrayList<>();
         adapterMountain = new AdapterMountain();
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
 
         // 1. use setter in adapter to set listOfMounts
         // 2. use method named NotifyDataSetChanged in adapter
+
 
         adapterMountain.notifyDataSetChanged();
     }
